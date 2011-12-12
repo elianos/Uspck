@@ -21,17 +21,22 @@ use \Nette\Application\UI\Form,
 class CmsPagePresenter extends BasePresenter
 {
 	
-	
+	public function renderDefault(){
+		$this->template->open = '';
+		if($this->getParam('open')){
+			$this->template->open = $this->getParam('open');	
+		}
+	}
 	
 	protected function createComponentCmsGrid($name){
-		$section = $this->session->getNamespace('web');
         $db = $this->context->getService('database');
-		$res = $db->table('cms_pages');
+		$pages = new \Models\PagesModel($this->context);
+        $res = $db->table('cms_pages')->where('id', $pages->getPages());
 		$model = new \Gridito\NetteDatabaseModel($res);
 		$grid = new \Gridito\Grid($this, $name);
 		$grid->setModel($model);
 		$grid->addColumn('id', 'ID')->setSortable(true);
-		$grid->addColumn('name', 'Jméno')->setSortable(true);
+		$grid->addColumn('name', 'JmĂ©no')->setSortable(true);
 		$grid->addColumn('content', 'Obsah')->setSortable(true);
 		$grid->addWindowButton('edit', 'Upravit')->setHandler(function ($row) use ($grid){
 			echo $grid->presenter->createComponentEditForm($row);
@@ -45,24 +50,30 @@ class CmsPagePresenter extends BasePresenter
 	
 	public function createComponentEditForm($grid){
 		$_id = $this->getParam('id');
+		$form = new \Nette\Application\UI\Form();
+		$url = $this->link('CmsPage:edit');
+		$form->setAction($url);
 		if($_id != null){
-			
 			$db = $this->context->getService('database');
 			$res = $db->table('cms_pages')->where('id', $_id)->fetch();
-			
-			$form = new \Nette\Application\UI\Form();
-			$form->addHidden('id')->setDefaultValue($res['id']);
+            $form->addHidden('id')->setDefaultValue($res['id']);
 			$form->addTextArea('content', 'Obsah:')->setRequired('Zadejte popis.')->setDefaultValue($res['content']);
-			$form->onSubmit[] = callback($this, 'addFormSubmitted');
-			$form->addSubmit('submit', 'Upravit');
 		}else{
-			$form = new \Nette\Application\UI\Form();
 			$form->addHidden('id')->setDefaultValue($grid->id);
 			$form->addTextArea('content', 'Obsah:')->setRequired('Zadejte popis.')->setDefaultValue($grid->content);
-			$form->onSubmit[] = callback($this, 'addFormSubmitted');
-			$form->addSubmit('submit', 'Upravit');
 		}
+		$form->addSubmit('submit', 'Odeslat');
 		return $form;
+	}
+	
+	public function actionEdit(){
+		$form = $_POST;
+		$id = $form['id'];
+		unset($form['id']);
+		unset($form['submit_']);
+		$db = $this->context->getService('database');
+		$db->exec('UPDATE cms_pages SET ? WHERE id = ?', $form, $id);
+		$this->redirect('cmsPage:');
 	}
 }
 ?>

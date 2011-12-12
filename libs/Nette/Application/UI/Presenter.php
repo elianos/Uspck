@@ -488,8 +488,8 @@ abstract class Presenter extends Control implements Application\IPresenter
 			"$dir/templates/$presenter.@$layout.phtml",
 		);
 		do {
-			$list[] = "$dir/templates/@$layout.latte";
-			$list[] = "$dir/templates/@$layout.phtml";
+			$list[] = "$dir/default/@$layout.latte";
+			$list[] = "$dir/default/@$layout.phtml";
 			$dir = dirname($dir);
 		} while ($dir && ($name = substr($name, 0, strrpos($name, ':'))));
 		return $list;

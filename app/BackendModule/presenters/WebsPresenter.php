@@ -34,10 +34,17 @@ class WebsPresenter extends BasePresenter
 		$grid->addColumn('id', 'ID')->setSortable(true);
 		$grid->addColumn('name', 'Název')->setSortable(true);
 		$grid->addColumn('url', 'Adresa')->setSortable(true);
-		$grid->addButton('select', 'Vybrat')->setLink(function ($row) use ($grid){
+		$grid->addButton('select', 'Vybrat')->setHandler(function ($row) use ($grid){
 			$section = $grid->presenter->session->getNamespace('web');
+			$db = $grid->presenter->context->getService('database');
+			$res = $db->table('core_pages')->where('core_webs_id', $row->id)->select('core_pages.id')->fetchPairs('id');
+			$i = 0;
+			foreach($res as $r){
+				$pages[$i++] = $r['id'];	
+			}
 			$section->id = $row->id;
-			return $grid->presenter->link('pages:default');
+			$section->pages = $pages;
+			$grid->presenter->redirect('pages:default');
 		});
 	}	
 	

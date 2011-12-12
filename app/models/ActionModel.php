@@ -36,4 +36,17 @@ class ActionModel extends BaseModel{
 		$db = $this->context->getService('database');
 		return $db->query('SELECT *, FROM_UNIXTIME(time) AS date FROM action_detail LEFT JOIN gallery_topics ON action_detail.key = gallery_topics.key WHERE action_detail.id = ?', $id)->fetch();
 	}
+	
+	public function deleteTopic($id){
+		$db = $this->context->getService('database');
+		return $db->exec('DELETE FROM action_detail WHERE id=?', $id);
+	}
+	
+	public function editTopic($form){
+		$id = $form['id'];
+		unset($form['id']);
+		unset($form['submit_']);
+		$db = $this->context->getService('database');
+		return $db->exec('UPDATE action_detail SET ? WHERE id = ?', $form, $id);
+	}
 }

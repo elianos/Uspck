@@ -18,6 +18,7 @@ class NetteDatabaseModel extends AbstractModel
 	/** @var string */
 	protected $rowClass;
 
+	private $primaryKey = 'id';
 
 
 	/**
@@ -38,7 +39,8 @@ class NetteDatabaseModel extends AbstractModel
 		$selection = clone $this->selection;
 		$sel = clone $this->selection;
 		//$selection->where($this->getPrimaryKey(), $uniqueId);
-		return $selection->where($sel->find($uniqueId)->name.'.'.$this->getPrimaryKey(), $uniqueId)->fetch();
+		return $selection->find($uniqueId)->fetch();
+		//return $selection->where($sel->find($uniqueId)->name.'.'.$this->getPrimaryKey(), $uniqueId)->fetch();
 	}
 
 
@@ -54,7 +56,17 @@ class NetteDatabaseModel extends AbstractModel
 			$selection->order($sortColumn.' '.$sortType);
 		}
 
-		return $selection->fetchPairs('id');
+		return $selection->fetchPairs($this->getPrimaryKey());
+	}
+	
+	public function getPrimaryKey()
+	{
+		if($this->primaryKey == null){
+			$connect = $this->selection->connection;
+			$key = $connect->query('SHOW KEYS FROM `'.$this->selection->name)->fetch();
+			$this->primaryKey = $key['Column_name'];
+		}
+		return $this->primaryKey;
 	}
 
 
