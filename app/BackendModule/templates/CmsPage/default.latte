@@ -1,18 +1,3 @@
 {block content}
 {control cmsGrid}
-{var $select = '.gridito-actioncell.button-'.$open.' a'}
-{if $open != null}
-<script>
-		$(document).ready(function(){
-		
-		$({$select}).bind('click', function(event) {
-	      event.preventDefault();
-			$.get(this.href);
-	    });
-		$({$select}).click();
-			/**window.location = $({$select}).attr('href');*/
-		})
-		$({$select}).trigger('click');
-</script>
-{/if}
 {/block}

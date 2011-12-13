@@ -37,9 +37,8 @@ class NetteDatabaseModel extends AbstractModel
 	public function getItemByUniqueId($uniqueId)
 	{
 		$selection = clone $this->selection;
-		$sel = clone $this->selection;
-		//$selection->where($this->getPrimaryKey(), $uniqueId);
-		return $selection->find($uniqueId)->fetch();
+		return $selection->where($this->selection->name.'.'.$this->getPrimaryKey(), $uniqueId)->fetch();
+		//return $selection->find($uniqueId)->fetch();
 		//return $selection->where($sel->find($uniqueId)->name.'.'.$this->getPrimaryKey(), $uniqueId)->fetch();
 	}
 

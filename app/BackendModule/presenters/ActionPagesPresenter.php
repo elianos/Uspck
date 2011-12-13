@@ -21,10 +21,6 @@ use \Nette\Application\UI\Form,
 class ActionPagesPresenter extends BasePresenter
 {
 	
-	public function renderDefault(){
-		
-	}
-	
 	protected function createComponentActionGrid($name){
         $db = $this->context->getService('database');
 		$pages = new \Models\PagesModel($this->context);
@@ -39,10 +35,6 @@ class ActionPagesPresenter extends BasePresenter
 			return $grid->presenter->link('actionPages:topics', array('id' => $row->id));
 		});
 
-	}
-	
-	public function renderTopics(){
-		
 	}
 	
 	protected function createComponentTopicGrid($name){
@@ -68,7 +60,6 @@ class ActionPagesPresenter extends BasePresenter
 		$grid->addToolbarWindowButton('create', 'Přidat topic')->setHandler(function () use ($grid) {
 			echo $grid->presenter->createComponentAddTopicForm($grid);
 		});
-
 	}
 	
 	public function createComponentAddTopicForm($grid){
@@ -93,25 +84,11 @@ class ActionPagesPresenter extends BasePresenter
 	}
 	
 	public function addTopicFormSubmitted($form){
-		$section = $this->session->getNamespace('web');
-		$container = $this->getContext();
-		$httpRequest = $container->httpRequest;
-		$file = $httpRequest->getFile('image');
-		$galleryModel = new \Models\GalleryModel($container);
-		
 		$values = $form->getValues();
-		$core_pages = array(
-				'name' => $values->name,
-				'text' => $values->text,
-				'key' => $values->key,
-				'time' => time(),
-				'action_pages_id' => $values->action_pages,
-			);
-		
-		$db = $this->context->getService('database');
-		
-		$db->exec('INSERT INTO action_detail', $core_pages);
-		
+		$container = $this->getContext();
+		$actionModel = new \Models\ActionModel($container);
+		$actionModel->addTopic($values);
+
 		$this->redirect('actionPages:topics', array('id' => $values->action_pages));
 	}
 	
@@ -130,9 +107,7 @@ class ActionPagesPresenter extends BasePresenter
 	
 	public function actionTopicDelete(){
 		$form = $_POST;
-		
 		$container = $this->getContext();
-		
 		$actionModel = new \Models\ActionModel($container);
 		$actionModel->deleteTopic($form['topicId']);
 		$this->redirect('actionPages:topics', array('id' => $this->getParam('id')));
@@ -162,9 +137,7 @@ class ActionPagesPresenter extends BasePresenter
 	
 	public function actionTopicEdit(){
 		$form = $_POST;
-		
 		$container = $this->getContext();
-		
 		$actionModel = new \Models\ActionModel($container);
 		$actionModel->editTopic($form);
 		$this->redirect('actionPages:topics', array('id' => $this->getParam('id')));

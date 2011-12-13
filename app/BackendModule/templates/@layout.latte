@@ -28,6 +28,7 @@
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js" type="text/javascript"></script>
 	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/ui-lightness/jquery-ui.css" type="text/css">
+	<link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/css/jquery-ui-1.8.16.custom.css" type="text/css">
 
 	<script type="text/javascript" src="{$basePath}/js/jquery.ui.gridito.js"></script>
 	<script type="text/javascript" src="{$basePath}/js/jquery.livequery.js"></script>
@@ -56,6 +57,7 @@
 		<li><a n:href="pages:default">Stránky</a></li>
 		<li><a n:href="cmsPage:default">Cms Stránky</a></li>
 		<li><a n:href="galleryPages:default">Gallerie</a></li>
+		<li><a n:href="actionPages:default">Akce</a></li>
 	</ul>
 	<div n:foreach="$flashes as $flash" class="flash {$flash->type}">{$flash->message}</div>
 	{dump}

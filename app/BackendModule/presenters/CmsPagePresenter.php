@@ -20,14 +20,6 @@ use \Nette\Application\UI\Form,
  */
 class CmsPagePresenter extends BasePresenter
 {
-	
-	public function renderDefault(){
-		$this->template->open = '';
-		if($this->getParam('open')){
-			$this->template->open = $this->getParam('open');	
-		}
-	}
-	
 	protected function createComponentCmsGrid($name){
         $db = $this->context->getService('database');
 		$pages = new \Models\PagesModel($this->context);
@@ -41,11 +33,6 @@ class CmsPagePresenter extends BasePresenter
 		$grid->addWindowButton('edit', 'Upravit')->setHandler(function ($row) use ($grid){
 			echo $grid->presenter->createComponentEditForm($row);
 		});
-
-	}
-	
-	public function renderDetail(){
-		
 	}
 	
 	public function createComponentEditForm($grid){
@@ -68,11 +55,9 @@ class CmsPagePresenter extends BasePresenter
 	
 	public function actionEdit(){
 		$form = $_POST;
-		$id = $form['id'];
-		unset($form['id']);
-		unset($form['submit_']);
-		$db = $this->context->getService('database');
-		$db->exec('UPDATE cms_pages SET ? WHERE id = ?', $form, $id);
+		$container = $this->getContext();
+		$cmsModel = new \Models\CmsModel($container);
+		$cmsModel->editCms($form);
 		$this->redirect('cmsPage:');
 	}
 }

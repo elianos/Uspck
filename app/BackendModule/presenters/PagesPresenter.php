@@ -21,10 +21,6 @@ use \Nette\Application\UI\Form,
 class PagesPresenter extends BasePresenter
 {
 	
-	public function renderDefault(){
-
-	}
-	
 	protected function createComponentPageGrid($name){
 		$section = $this->session->getNamespace('web');
         

@@ -22,7 +22,7 @@ use \Nette\Application\UI\Presenter,
  * @author     Vlastimil Jinoch
  * @package    CMS system
  */
-abstract class BasePresenter extends \Nette\Application\UI\Presenter
+abstract class BasePresenter extends \BackendModule\Presenter
 {	
 	protected function startup() {
     	parent::startup();

@@ -49,4 +49,16 @@ class ActionModel extends BaseModel{
 		$db = $this->context->getService('database');
 		return $db->exec('UPDATE action_detail SET ? WHERE id = ?', $form, $id);
 	}
+	
+	public function addTopic($values){
+		$core_pages = array(
+			'name' => $values->name,
+			'text' => $values->text,
+			'key' => $values->key,
+			'time' => time(),
+			'action_pages_id' => $values->action_pages,
+		);
+		$db = $this->context->getService('database');
+		$db->exec('INSERT INTO action_detail', $core_pages);
+	}
 }
