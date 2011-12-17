@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Počítač: elianos.buk.cvut.cz
--- Vygenerováno: Sobota 17. prosince 2011, 10:31
+-- Vygenerováno: Sobota 17. prosince 2011, 12:30
 -- Verze MySQL: 5.5.15
 -- Verze PHP: 5.3.5
 
@@ -33,7 +33,8 @@ CREATE TABLE IF NOT EXISTS `action_detail` (
   `text` text CHARACTER SET utf8 COLLATE utf8_czech_ci NOT NULL,
   `key` varchar(20) CHARACTER SET utf8 COLLATE utf8_czech_ci NOT NULL,
   `action_pages_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `action_pages_id` (`action_pages_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=279 ;
 
 -- --------------------------------------------------------
@@ -98,7 +99,8 @@ CREATE TABLE IF NOT EXISTS `core_pages` (
   `active` tinyint(1) NOT NULL,
   `order` int(11) NOT NULL,
   `core_webs_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `core_webs_id` (`core_webs_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci AUTO_INCREMENT=57 ;
 
 -- --------------------------------------------------------
@@ -156,7 +158,8 @@ DROP TABLE IF EXISTS `gallery_pages`;
 CREATE TABLE IF NOT EXISTS `gallery_pages` (
   `id` int(11) NOT NULL,
   `name` varchar(40) CHARACTER SET utf8 COLLATE utf8_czech_ci DEFAULT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT '1'
+  `active` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -174,12 +177,25 @@ CREATE TABLE IF NOT EXISTS `gallery_topics` (
   `key` varchar(10) CHARACTER SET utf8 COLLATE utf8_czech_ci NOT NULL,
   `date` int(11) NOT NULL,
   `gallery_pages_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `gallery_pages_id` (`gallery_pages_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
 
 --
 -- Omezení pro exportované tabulky
 --
+
+--
+-- Omezení pro tabulku `action_detail`
+--
+ALTER TABLE `action_detail`
+  ADD CONSTRAINT `action_detail_ibfk_1` FOREIGN KEY (`action_pages_id`) REFERENCES `action_pages` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Omezení pro tabulku `action_pages`
+--
+ALTER TABLE `action_pages`
+  ADD CONSTRAINT `action_pages_ibfk_1` FOREIGN KEY (`id`) REFERENCES `core_pages` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Omezení pro tabulku `cms_pages`
@@ -188,7 +204,25 @@ ALTER TABLE `cms_pages`
   ADD CONSTRAINT `cms_pages_ibfk_1` FOREIGN KEY (`id`) REFERENCES `core_pages` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Omezení pro tabulku `core_pages`
+--
+ALTER TABLE `core_pages`
+  ADD CONSTRAINT `core_pages_ibfk_1` FOREIGN KEY (`core_webs_id`) REFERENCES `core_webs` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Omezení pro tabulku `gallery_images`
 --
 ALTER TABLE `gallery_images`
   ADD CONSTRAINT `gallery_images_ibfk_1` FOREIGN KEY (`gallery_topics_id`) REFERENCES `gallery_topics` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Omezení pro tabulku `gallery_pages`
+--
+ALTER TABLE `gallery_pages`
+  ADD CONSTRAINT `gallery_pages_ibfk_1` FOREIGN KEY (`id`) REFERENCES `core_pages` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Omezení pro tabulku `gallery_topics`
+--
+ALTER TABLE `gallery_topics`
+  ADD CONSTRAINT `gallery_topics_ibfk_1` FOREIGN KEY (`gallery_pages_id`) REFERENCES `gallery_pages` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
