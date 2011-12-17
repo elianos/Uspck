@@ -20,6 +20,11 @@ use \Nette\Application\UI\Form,
  */
 class CmsPagePresenter extends BasePresenter
 {
+	
+	/**
+	 * Function preparing data grid with pages of Cms
+	 * @param string $name
+	 */
 	protected function createComponentCmsGrid($name){
         $db = $this->context->getService('database');
 		$pages = new \Models\PagesModel($this->context);
@@ -35,6 +40,10 @@ class CmsPagePresenter extends BasePresenter
 		});
 	}
 	
+	/**
+	 * Function preparing form for editing page
+	 * @param \Gridito\Grid $grid
+	 */
 	public function createComponentEditForm($grid){
 		$_id = $this->getParam('id');
 		$form = new \Nette\Application\UI\Form();
@@ -53,6 +62,9 @@ class CmsPagePresenter extends BasePresenter
 		return $form;
 	}
 	
+	/**
+	 * Function data processing of edit page
+	 */
 	public function actionEdit(){
 		$form = $_POST;
 		$container = $this->getContext();

@@ -38,8 +38,6 @@ class NetteDatabaseModel extends AbstractModel
 	{
 		$selection = clone $this->selection;
 		return $selection->where($this->selection->name.'.'.$this->getPrimaryKey(), $uniqueId)->fetch();
-		//return $selection->find($uniqueId)->fetch();
-		//return $selection->where($sel->find($uniqueId)->name.'.'.$this->getPrimaryKey(), $uniqueId)->fetch();
 	}
 
 

@@ -21,6 +21,10 @@ use \Nette\Application\UI\Form,
 class ActionPagesPresenter extends BasePresenter
 {
 	
+	/**
+	 * Function preparing data grid with pages of actions
+	 * @param string $name
+	 */
 	protected function createComponentActionGrid($name){
         $db = $this->context->getService('database');
 		$pages = new \Models\PagesModel($this->context);
@@ -37,6 +41,10 @@ class ActionPagesPresenter extends BasePresenter
 
 	}
 	
+	/**
+	 * Function preparing data grid with topic of action page
+	 * @param string $name
+	 */
 	protected function createComponentTopicGrid($name){
 		$param = $this->session->getNamespace('param');
 		if($this->getParam('id') != null){
@@ -62,6 +70,10 @@ class ActionPagesPresenter extends BasePresenter
 		});
 	}
 	
+	/**
+	 * Function preparing form for adding topics
+	 * @param \Gridito\Grid $grid
+	 */
 	public function createComponentAddTopicForm($grid){
 		$param = $this->session->getNamespace('param');
 		if($this->getParam('id') != null){
@@ -83,6 +95,10 @@ class ActionPagesPresenter extends BasePresenter
 		return $form;
 	}
 	
+	/**
+	 * Function data processing of new topic
+	 * @param \Nette\Application\UI\Form $form
+	 */
 	public function addTopicFormSubmitted($form){
 		$values = $form->getValues();
 		$container = $this->getContext();
@@ -92,6 +108,10 @@ class ActionPagesPresenter extends BasePresenter
 		$this->redirect('actionPages:topics', array('id' => $values->action_pages));
 	}
 	
+	/**
+	 * Function preparing form for delete topic
+	 * @param array $val
+	 */
 	public function createComponentDeleteTopicForm($val){
 		$param = $this->session->getNamespace('param');
 		if($this->getParam('id') != null){
@@ -105,6 +125,9 @@ class ActionPagesPresenter extends BasePresenter
 		return $form;
 	}
 	
+	/**
+	 * Function data processing of delete topic
+	 */
 	public function actionTopicDelete(){
 		$form = $_POST;
 		$container = $this->getContext();
@@ -113,6 +136,10 @@ class ActionPagesPresenter extends BasePresenter
 		$this->redirect('actionPages:topics', array('id' => $this->getParam('id')));
 	}
 	
+	/**
+	 * Function preparing form for edit topic
+	 * @param array $val
+	 */
 	public function createComponentEditTopicForm($val){
 		$param = $this->session->getNamespace('param');
 		if($this->getParam('id') != null){
@@ -135,6 +162,9 @@ class ActionPagesPresenter extends BasePresenter
 		return $form;
 	}
 	
+	/**
+	 * Function data processing of edit topic
+	 */
 	public function actionTopicEdit(){
 		$form = $_POST;
 		$container = $this->getContext();

@@ -13,7 +13,7 @@ use \Nette\Application\UI\Form,
 	\Nette\Http\Session;
 	
 /**
- * Action presenter.
+ * Pages presenter.
  *
  * @author     Vlastimil Jinoch
  * @package    CMS system

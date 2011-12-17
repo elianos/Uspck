@@ -13,17 +13,13 @@ use \Nette\Application\UI\Form,
 	\Nette\Http\Session;
 	
 /**
- * Cms presenter.
+ * Gallery presenter.
  *
  * @author     Vlastimil Jinoch
  * @package    CMS system
  */
 class GalleryPagesPresenter extends BasePresenter
 {
-	
-	public function renderDefault(){
-		
-	}
 	
 	protected function createComponentPageGrid($name){
         $db = $this->context->getService('database');
