@@ -1,29 +1,18 @@
-{**
- * My Application layout template.
- *
- * @copyright  Copyright (c) 2010 John Doe
- * @package    MyApplication
- *
- * @param string   $basePath web base path
- * @param string   $robots   tell robots how to index the content of a page (optional)
- * @param array    $flashes  flash messages
- *}
-
 <!DOCTYPE html>
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-	<meta name="description" content="Nette Framework web application skeleton">
+	<meta name="description" content="Cms system">
 	<meta name="robots" content="{$robots}" n:ifset="$robots">
 
-	<title>Nette Application Skeleton</title>
+	<title>Cms System</title>
 
-	<link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/css/adminScreen.css" type="text/css">
-	<link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/css/gridito.css" type="text/css">
-	<link rel="stylesheet" media="print" type="text/css" href="{$basePath}/css/print.css">
-	<link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/css/jquery-ui-1.8.16.custom.css" type="text/css">
-	<link rel="shortcut icon" href="{$basePath}/favicon.ico" type="image/x-icon">
+	<link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/css/adminScreen.css" type="text/css" />
+	<link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/css/gridito.css" type="text/css" />
+	<link rel="stylesheet" media="print" type="text/css" href="{$basePath}/css/print.css" />
+	<link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/css/jquery-ui-1.8.16.custom.css" type="text/css" />
+	<link rel="shortcut icon" href="{$basePath}/images/favico.png" type="image/png" />
 	
 	<!-- jQuery, jQuery UI & livequery -->
 	<script type="text/javascript" src="{$basePath}/js/jquery.min.js"></script>
@@ -32,7 +21,7 @@
 
 	<script type="text/javascript" src="{$basePath}/js/jquery.ui.gridito.js"></script>
 	<script type="text/javascript" src="{$basePath}/js/jquery.livequery.js"></script>
-	<script type="text/javascript" src="{$basePath}/js/netteForms.js"></script>
+
 	<script type="text/javascript" src="{$basePath}/js/jquery.nette.js"></script>
 	<script type="text/javascript" src="{$basePath}/js/live-form-validation.js"></script>
 	
@@ -40,6 +29,10 @@
 	<script type="text/javascript">
 		// gridito init
 		$("div.gridito").livequery(function () {
+			$(this).gridito();
+		});
+		
+		$("div.gridito input").livequery(function () {
 			$(this).gridito();
 		});
 	

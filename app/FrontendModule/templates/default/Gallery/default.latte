@@ -1,18 +1,20 @@
 {block content}
-<ul>
-{foreach $years as $year}
-	<li><a n:href="gallery:default, 'id' => $param['id'], 'rok' => $year->date">{$year->date}</a></li>
-{/foreach}
-</ul>
-
-<ul>
-{foreach $topics as $topic}
-	<li>
-		<a n:href="gallery:detail, 'id' => $param['id'], 'inid' => $topic->gallery_topics_id">
-			{$topic->name}
-			<img src="{$baseUrl}/../media/gallery/min/{$topic->gallery_images_id}.jpg" />
-		</a>
-	</li>
-{/foreach}
-</ul>
+<div id="gallery" class="default">
+	<ul class="filter">
+	{foreach $years as $year}
+		<li><a n:href="gallery:default, 'id' => $param['id'], 'rok' => $year->date">{$year->date}</a></li>
+	{/foreach}
+	</ul>
+	
+	<ul class="topics">
+	{foreach $topics as $topic}
+		<li>
+			<a n:href="gallery:detail, 'id' => $param['id'], 'inid' => $topic->gallery_topics_id">
+				{$topic->name}
+				<img src="{$baseUrl}/../media/gallery/min/{$topic->gallery_images_id}.jpg" alt="{$topic->gallery_images_id}" />
+			</a>
+		</li>
+	{/foreach}
+	</ul>
+</div>
 {/block}

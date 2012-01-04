@@ -68,7 +68,7 @@ class SignPresenter extends \FrontendModule\BasePresenter
 		} catch (\Nette\Security\AuthenticationException $e) {
 			$form->addError($e->getMessage());
 			if($this->isAjax()){
-				$form->setValues(array(), TRUE);
+				//$form->setValues(array(), TRUE);
 				$this->invalidateControl('flashMessages');
 		        $this->invalidateControl('form');
 			}

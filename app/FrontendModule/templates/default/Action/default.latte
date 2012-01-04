@@ -1,17 +1,19 @@
 {block content}
-<ul>
-{foreach $years as $year}
-	<li><a n:href="action:default, 'id' => $param['id'], 'rok' => $year->years">{$year->years}</a></li>
-{/foreach}
-</ul>
-
-<ul>
-{foreach $actions as $action}
-	<li>
-		<a n:href="action:detail, 'id' => $param['id'], 'inid' => $action->id">
-			{$action->name}
-		</a>
-	</li>
-{/foreach}
-</ul>
+<div id="action" class="default">
+	<ul class="filter">
+	{foreach $years as $year}
+		<li><a n:href="action:default, 'id' => $param['id'], 'rok' => $year->years">{$year->years}</a></li>
+	{/foreach}
+	</ul>
+	
+	<ul class="topics">
+	{foreach $actions as $action}
+		<li>
+			<a n:href="action:detail, 'id' => $param['id'], 'inid' => $action->id">
+				{$action->name}
+			</a>
+		</li>
+	{/foreach}
+	</ul>
+</div>
 {/block}

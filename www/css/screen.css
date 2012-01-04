@@ -1,14 +1,22 @@
 body {
 	font: 16px/1.5 "Trebuchet MS", "Geneva CE", lucida, sans-serif;
 	color: #333;
-	background-color: #fff;
+	background: #eee;
 }
-
+a{
+	color: #333;
+}
+a:hover{
+	text-decoration: none;
+}
 h1 {
-	font-size: 150%;
-	color: #3484D2;
+	font-size: 1.5em;
+	color: #333;
 }
-
+h2 {
+	font-size: 1.1em;
+	color: #333;
+}
 #ajax-spinner {
 	margin: 15px 0 0 15px;
 	padding: 13px;
@@ -29,4 +37,96 @@ div.flash {
 a[href^="error:"] {
 	background: red;
 	color: white;
+}
+
+#wrapper{
+	margin: 0 auto;
+	width: 80%;
+}
+#header{
+	vertical-align: middle;
+	width: 100%;
+}
+#header #logo{
+	vertical-align: middle;
+	display: inline-table;
+	padding: 10px;
+}
+#header #logo img{
+	border: 0;
+}
+#header #navigation{
+	vertical-align: middle;
+	display: inline-table;
+	list-style: none;
+}
+#header #navigation li{
+	display: inline;
+	margin-right: 20px;
+}
+
+#header #navigation li a{
+	background: #aaa;
+	border-radius: 3px;
+	border: 1px solid #666;
+	color: #eee;
+	padding: 3px 10px;
+	text-decoration: none;
+	font-size: 0.9em;
+}
+
+#header #navigation li a:hover{
+	background: #fff;
+	color: #666;
+}
+
+.filter{
+	border-bottom: 1px solid #333;
+	display: block;
+	list-style: none;
+	margin: 0 0 10px 0;
+	padding: 0;
+	width: 100%;
+}
+.filter li{
+	display: inline-table;
+	margin-right: 10px;
+}
+#action .topics{
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+#action .topics li{
+	display: inline-table;
+	width: 33%;
+}
+#action .bar{
+	width: 100%;
+	border-bottom: 1px solid #333;
+	display: block;
+	margin: 0 0 10px 0;
+}
+
+#gallery .topics{
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+#gallery .topics li{
+	display: inline-table;
+	padding: 10px;
+}
+#gallery .topics li img{
+	display: block;
+}
+#gallery .photos{
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+#gallery .photos li{
+	display: inline-table;
+	padding: 10px;
 }

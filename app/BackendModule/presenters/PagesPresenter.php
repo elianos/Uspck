@@ -67,10 +67,10 @@ class PagesPresenter extends BasePresenter
 		$form->addText('name', 'Název:')->setRequired('Zadejte název.');
 		$form->addText('title', 'Popis:')->setRequired('Zadejte popis.');
 		$form->addText('metadata', 'Klíčová slova:')->setRequired('Zadejte klíčová slova.');
-		$form->addText('rewrite', 'Adresa:');
+		$form->addText('rewrite', 'Adresa:')->setRequired('Zadejte adresu.');
 		$form->addSelect('module', 'Modul', $m);
 		$form->addCheckbox('active', 'Aktivní')->setDefaultValue(1);
-		$form->addText('order', 'Pořadí:');
+		$form->addText('order', 'Pořadí:')->setDefaultValue(0)->setRequired('Zadejte pořadí.');
 		$form->addSubmit('submit', 'Vytvořit');
 		$form->onSubmit[] = callback($this, 'addFormSubmitted');
 		return $form;

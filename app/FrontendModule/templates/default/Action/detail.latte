@@ -1,6 +1,11 @@
 {block content}
-<h2>{$action['name']}</h2>
-{$action['date']}
-{$action['text']}
-Galerii můete nalézt <a n:href="gallery:detail, 'inid' => $action->id">zde</a>.
+<div id="action" class="detail">
+	{dump}
+	<h2>{$action['name']}</h2>
+	<div class="bar">{$action['date']}</div>
+	<div class="cont">
+		{!$action['text']}
+		<p>Galerii můete nalézt <a n:href="gallery:detail, 'inid' => $action->id">zde</a>.</p>	
+	</div>
+</div>
 {/block}
