@@ -20,11 +20,11 @@ use \Nette\Application\UI\Form,
  */
 class WebsPresenter extends BasePresenter
 {
-	
-	public function renderDefault(){
 
-	}
-	
+	/**
+	 * Function preparing data grid with list of webs
+	 * @param string $name
+	 */
 	protected function createComponentWebGrid($name){
         $db = $this->context->getService('database');
 		$res = $db->table('core_webs');

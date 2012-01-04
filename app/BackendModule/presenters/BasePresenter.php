@@ -24,14 +24,14 @@ use \Nette\Application\UI\Presenter,
  */
 abstract class BasePresenter extends \BackendModule\Presenter
 {	
+	
+	/**
+	 * Function checking if you are logged in
+	 */
 	protected function startup() {
     	parent::startup();
 		if($this->getPresenter()->getName() != 'Backend:Sign'){
 	      	if(!$this->getUser()->isLoggedIn()){		
-	      		//$section = $this->session->getSection('redirect');
-	      		//list($_dum , $section->presenter) = explode(":", $this->getPresenter()->getName());
-				//$section->action = $this->getAction();
-				//$section->id = $this->getParam('id');
 	      		$this->redirect('Sign:in');
 	      	}
       	}

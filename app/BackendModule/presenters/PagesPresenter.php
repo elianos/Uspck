@@ -20,7 +20,10 @@ use \Nette\Application\UI\Form,
  */
 class PagesPresenter extends BasePresenter
 {
-	
+	/**
+	 * Function preparing data grid with list of pages
+	 * @param string $name
+	 */
 	protected function createComponentPageGrid($name){
 		$section = $this->session->getNamespace('web');
         
@@ -36,6 +39,7 @@ class PagesPresenter extends BasePresenter
 		$grid->addColumn('module_name', 'Name')->setSortable(true);
 		$grid->addColumn('active', 'Aktivní')->setSortable(true);
 		$grid->addColumn('home', 'Domovská stránka')->setSortable(true);
+		$grid->addColumn('order', 'Pořadí')->setSortable(true);
 		$grid->addToolbarWindowButton('create', 'Přidat záznam')->setHandler(function () use ($grid) {
 			echo $grid->presenter->createComponentAddForm($grid);
 		});
@@ -47,7 +51,11 @@ class PagesPresenter extends BasePresenter
 		});
 	}
 	
-	
+	/**
+	 * Function preparing form for addign page
+	 * @param \Gridito\Grid $grid
+	 * @return Nette\Application\UI\Form
+	 */
 	public function createComponentAddForm($grid){
 		$db = $this->context->getService('database');
 		$modules = $db->table('core_modules')->fetchPairs('id');
@@ -68,6 +76,10 @@ class PagesPresenter extends BasePresenter
 		return $form;
 	}
 	
+	/**
+	 * Function data processing of add page
+	 * @param Nette\Application\UI\Form $form
+	 */
 	public function addFormSubmitted($form){
 		$section = $this->session->getNamespace('web');
 		
@@ -96,7 +108,11 @@ class PagesPresenter extends BasePresenter
 		$this->redirect($_url, array('open' => $id[0]));
 	}
 	
-
+	/**
+	 * Function preparing form for editing pages
+	 * @param \Gridito\Grid $val
+	 * @return Nette\Application\UI\Form
+	 */
 	public function createComponentEditForm($val){
 		$form = new \Nette\Application\UI\Form();
 		$url = $this->link('pages:edit');
@@ -106,12 +122,16 @@ class PagesPresenter extends BasePresenter
 		$form->addText('metadata', 'Klíčová slova:')->setRequired('Zadejte klíčová slova.')->setDefaultValue($val->metadata);
 		$form->addText('rewrite', 'Adresa:')->setDefaultValue($val->rewrite);
 		$form->addCheckbox('active', 'Aktivní')->setDefaultValue($val->active);
+		$form->addText('order', 'Pořadí:')->setDefaultValue($val->order);
 		$form->addHidden('id', $val->id);
 		$form->addSubmit('submit', 'Vytvořit');
 		$form->onSubmit[] = callback($this, 'editFormSubmitted');
 		return $form;
 	}
 	
+	/**
+	 * Function data processing of edit page
+	 */
 	public function actionEdit(){
 		$form = $_POST;
 		$id = $form['id'];
@@ -125,7 +145,11 @@ class PagesPresenter extends BasePresenter
 		$this->redirect('pages:');
 	}
 
-	
+	/**
+	 * Function preparing form for deleteing page
+	 * @param \Gridito\Grid $val
+	 * @return Nette\Application\UI\Form
+	 */
 	public function createComponentDeleteForm($val){
 		$form = new \Nette\Application\UI\Form();
 		$url = $this->link('pages:delete');
@@ -136,6 +160,9 @@ class PagesPresenter extends BasePresenter
 		return $form;
 	}
 	
+	/**
+	 * Function data processing of delete
+	 */
 	public function actionDelete(){
 		$form = $_POST;
 		$db = $this->context->getService('database');

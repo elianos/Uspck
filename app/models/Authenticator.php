@@ -35,15 +35,15 @@ class MyAuthenticator extends \Nette\Object implements NS\IAuthenticator
             ->where('nickname', $username)->fetch();
 
 		if (!$row) {
-			throw new \NS\AuthenticationException("User '$username' not found.", self::IDENTITY_NOT_FOUND);
+			throw new \Nette\Security\AuthenticationException("Uživatel '$username' neexituje.", self::IDENTITY_NOT_FOUND);
 		}
 
 		if ($row->password !== $this->calculateHash($password)) {
-			throw new \NS\AuthenticationException("Invalid password.", self::INVALID_CREDENTIAL);
+			throw new \Nette\Security\AuthenticationException("Nesprávné heslo.", self::INVALID_CREDENTIAL);
 		}
 
 		unset($row->password);
-		return new NS\Identity($row->nickname, 'admin', $row->toArray());
+		return new \Nette\Security\Identity($row->nickname, 'admin', $row->toArray());
 	}
 
 

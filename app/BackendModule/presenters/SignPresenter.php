@@ -1,10 +1,10 @@
 <?php
 
 /**
- * My Application
+ * CMS system
  *
- * @copyright  Copyright (c) 2010 John Doe
- * @package    MyApplication
+ * @copyright  Copyright (c) 2012 Vlastimil Jinoch
+ * @package    CMSsystem
  */
 
 namespace BackendModule;
@@ -14,14 +14,17 @@ use Nette\Application\UI,
 
 
 /**
- * Sign in/out presenters.
+ * User presenter.
  *
- * @author     John Doe
- * @package    MyApplication
+ * @author     Vlastimil Jinoch
+ * @package    CMS system
  */
 class SignPresenter extends \FrontendModule\BasePresenter
 {
 
+	public function actionIn(){
+		
+	}
 
 	/**
 	 * Sign in form component factory.
@@ -30,15 +33,16 @@ class SignPresenter extends \FrontendModule\BasePresenter
 	protected function createComponentSignInForm()
 	{
 		$form = new UI\Form;
-		$form->addText('username', 'Username:')
-			->setRequired('Please provide a username.');
+		$form->getElementPrototype()->class('ajax');
+		$form->addText('username', 'Uživatelské jméno:')
+			->setRequired('Zadejte uživatelské jméno.');
 
-		$form->addPassword('password', 'Password:')
-			->setRequired('Please provide a password.');
+		$form->addPassword('password', 'Heslo:')
+			->setRequired('Zadejte heslo.');
 
-		$form->addCheckbox('remember', 'Remember me on this computer');
+		$form->addCheckbox('remember', 'Zapamatovat si mě zde.');
 
-		$form->addSubmit('send', 'Sign in');
+		$form->addSubmit('send', 'Přihlásit');
 
 		$form->onSubmit[] = callback($this, 'signInFormSubmitted');
 		return $form;
@@ -56,10 +60,18 @@ class SignPresenter extends \FrontendModule\BasePresenter
 				$this->getUser()->setExpiration('+ 20 minutes', TRUE);
 			}
 			$this->getUser()->login($values->username, $values->password);
+			if($this->isAjax()){
+				$this->redirect('Webs:');
+				$this->invalidateControl();
+			}
 			$this->redirect('Webs:');
-
-		} catch (NS\AuthenticationException $e) {
+		} catch (\Nette\Security\AuthenticationException $e) {
 			$form->addError($e->getMessage());
+			if($this->isAjax()){
+				$form->setValues(array(), TRUE);
+				$this->invalidateControl('flashMessages');
+		        $this->invalidateControl('form');
+			}
 		}
 	}
 
@@ -68,7 +80,7 @@ class SignPresenter extends \FrontendModule\BasePresenter
 	public function actionOut()
 	{
 		$this->getUser()->logout();
-		$this->flashMessage('You have been signed out.');
+		$this->flashMessage('Byl jste odhlášen.');
 		$this->redirect('in');
 	}
 

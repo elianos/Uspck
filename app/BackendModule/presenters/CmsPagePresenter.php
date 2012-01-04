@@ -33,7 +33,7 @@ class CmsPagePresenter extends BasePresenter
 		$grid = new \Gridito\Grid($this, $name);
 		$grid->setModel($model);
 		$grid->addColumn('id', 'ID')->setSortable(true);
-		$grid->addColumn('name', 'JmĂ©no')->setSortable(true);
+		$grid->addColumn('name', 'Jméno')->setSortable(true);
 		$grid->addColumn('content', 'Obsah')->setSortable(true);
 		$grid->addWindowButton('edit', 'Upravit')->setHandler(function ($row) use ($grid){
 			echo $grid->presenter->createComponentEditForm($row);
@@ -43,6 +43,7 @@ class CmsPagePresenter extends BasePresenter
 	/**
 	 * Function preparing form for editing page
 	 * @param \Gridito\Grid $grid
+	 * @return Nette\Application\UI\Form
 	 */
 	public function createComponentEditForm($grid){
 		$_id = $this->getParam('id');

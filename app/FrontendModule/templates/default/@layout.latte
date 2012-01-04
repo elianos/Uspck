@@ -32,7 +32,7 @@
 	<div id="navigation">
 		<ul>{dump}
 			{foreach $navigation_list as $part}
-				<a n:href="$part->presenter.':'.$part->action, 'id' => $part->id">{$part->name}</a>
+				<li><a n:href="$part->presenter.':'.$part->action, 'id' => $part->id">{$part->name}</a></li>
 			{/foreach}
 		</ul>
 	</div>

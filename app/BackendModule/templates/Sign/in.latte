@@ -1,7 +1,7 @@
 {var $robots = noindex}
-
+{layout '@signLayout.latte'}
 {block #content}
 
-<h1>Sign in</h1>
-
-{control signInForm}
+	{snippet form}
+		{control signInForm}
+	{/snippet}

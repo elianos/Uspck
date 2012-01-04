@@ -74,3 +74,14 @@ $.widget("ui.gridito", {
 });
 
 })(jQuery);
+
+//gridito init
+$("div.gridito").livequery(function () {
+	$(this).gridito();
+});
+
+// nette ajax init
+$("a.ajax").live("click", function (event) {
+	event.preventDefault();
+	$.get(this.href);
+});

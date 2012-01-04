@@ -20,7 +20,10 @@ use \Nette\Application\UI\Form,
  */
 class GalleryPagesPresenter extends BasePresenter
 {
-	
+	/**
+	 * Function preparing data grid with gallery pages
+	 * @param string $name
+	 */
 	protected function createComponentPageGrid($name){
         $db = $this->context->getService('database');
 		$pages = new \Models\PagesModel($this->context);
@@ -30,17 +33,17 @@ class GalleryPagesPresenter extends BasePresenter
 		$grid->setDefaultSorting('id', 'DESC');
 		$grid->setModel($model);
 		$grid->addColumn('id', 'ID')->setSortable(true);
-		$grid->addColumn('name', 'JmĂ©no')->setSortable(true);
+		$grid->addColumn('name', 'Jméno')->setSortable(true);
 		$grid->addButton('open', 'Otevřít')->setLink(function ($row) use ($grid){
 			return $grid->presenter->link('galleryPages:topics', array('id' => $row->id));
 		});
 
 	}
 	
-	public function renderTopics(){
-		
-	}
-	
+	/**
+	 * Function preparing data grid with gallery topics
+	 * @param string $name
+	 */
 	protected function createComponentTopicGrid($name){
 		$param = $this->session->getNamespace('param');
 		if($this->getParam('id') != null){
@@ -53,7 +56,7 @@ class GalleryPagesPresenter extends BasePresenter
 		$grid = new \Gridito\Grid($this, $name);
 		$grid->setModel($model);
 		$grid->addColumn('id', 'ID')->setSortable(true);
-		$grid->addColumn('name', 'JmĂ©no')->setSortable(true);
+		$grid->addColumn('name', 'Jméno')->setSortable(true);
 		$grid->addColumn('description', 'Popis')->setSortable(true);
 		$grid->addColumn('key', 'Klíč')->setSortable(true);
 		$grid->addColumn('gallery_images_id', 'Náhled')->setRenderer(function ($row) use ($grid){
@@ -71,6 +74,11 @@ class GalleryPagesPresenter extends BasePresenter
 
 	}
 	
+	/**
+	 * Function preparing form for addign gallery topic
+	 * @param \Gridito\Grid $grid
+	 * @return Nette\Application\UI\Form
+	 */
 	public function createComponentAddTopicForm($grid){
 		$db = $this->context->getService('database');
 		$modules = $db->table('core_modules')->fetchPairs('id');
@@ -89,6 +97,11 @@ class GalleryPagesPresenter extends BasePresenter
 		return $form;
 	}
 	
+	
+	/**
+	 * Function data processing of add topic
+	 * @param Nette\Application\UI\Form $form
+	 */
 	public function addTopicFormSubmitted($form){
 		$section = $this->session->getNamespace('web');
 		$container = $this->getContext();
@@ -118,6 +131,10 @@ class GalleryPagesPresenter extends BasePresenter
 		$this->redirect('galleryPages:topics', array('id' => $this->getParam('id')));
 	}
 	
+	/**
+	 * Function preparing form for deleting topic
+	 * @param \Gridito\Grid $grid
+	 */
 	public function createComponentDeleteTopicForm($val){
 		$param = $this->session->getNamespace('param');
 		if($this->getParam('id') != null){
@@ -131,6 +148,9 @@ class GalleryPagesPresenter extends BasePresenter
 		return $form;
 	}
 	
+	/**
+	 * Function data processing of deleting topic
+	 */
 	public function actionTopicDelete(){
 		$form = $_POST;
 		
@@ -142,11 +162,10 @@ class GalleryPagesPresenter extends BasePresenter
 	}
 	
 	
-	public function renderDetail(){
-	}
-	
-	
-	
+	/**
+	 * Function preparing form for addign gallery photos
+	 * @param \Gridito\Grid $grid
+	 */
 	protected function createComponentDetailGrid($name){
         $param = $this->session->getNamespace('param');
 		if($this->getParam('id') != null){
@@ -174,6 +193,11 @@ class GalleryPagesPresenter extends BasePresenter
 		});
 	}
 	
+	/**
+	 * Function preparing form for addign photos
+	 * @param \Gridito\Grid $grid
+	 * @return Nette\Application\UI\Form
+	 */
 	public function createComponentAddDetailForm($grid){
 		$form = new \Nette\Application\UI\Form();
 		$form->setAction('?do=addDetailForm-submit');
@@ -183,6 +207,10 @@ class GalleryPagesPresenter extends BasePresenter
 		return $form;
 	}
 	
+	/**
+	 * Function data processing of adding photo
+	 * @param Nette\Application\UI\Form $form
+	 */
 	public function addDetailFormSubmitted($form){
 		$container = $this->getContext();
 		$httpRequest = $container->httpRequest;
@@ -193,6 +221,12 @@ class GalleryPagesPresenter extends BasePresenter
 		$this->redirect('galleryPages:detail', array('id' => $this->getParam('id')));
 	}
 	
+	
+	/**
+	 * Function preparing form for setting up main photo of gallery
+	 * @param \Gridito\Grid $grid
+	 * @return Nette\Application\UI\Form
+	 */
 	public function createComponentMainDetailForm($val){
 		$param = $this->session->getNamespace('param');
 		if($this->getParam('id') != null){
@@ -206,6 +240,9 @@ class GalleryPagesPresenter extends BasePresenter
 		return $form;
 	}
 	
+	/**
+	 * Function data processing of main photo
+	 */
 	public function actionDetailMain($form){
 		$container = $this->getContext();
 		$form = $_POST;
@@ -214,6 +251,12 @@ class GalleryPagesPresenter extends BasePresenter
 		$this->redirect('galleryPages:detail', array('id' => $this->getParam('id')));
 	}
 	
+	
+	/**
+	 * Function preparing form for deleting photo
+	 * @param \Gridito\Grid $grid
+	 * @return Nette\Application\UI\Form
+	 */
 	public function createComponentDeleteDetailForm($val){
 		$param = $this->session->getNamespace('param');
 		if($this->getParam('id') != null){
@@ -227,6 +270,10 @@ class GalleryPagesPresenter extends BasePresenter
 		return $form;
 	}
 	
+	/**
+	 * Function data processing of deleting photo
+	 * @param \Nette\Application\UI\Form $form
+	 */
 	public function actionDetailDelete($form){
 		$container = $this->getContext();
 		$form = $_POST;

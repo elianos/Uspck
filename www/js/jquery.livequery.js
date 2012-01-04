@@ -224,3 +224,4 @@ $.livequery.registerPlugin('append', 'prepend', 'after', 'before', 'wrap', 'attr
 $(function() { $.livequery.play(); });
 
 })(jQuery);
+
