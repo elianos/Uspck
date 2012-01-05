@@ -32,14 +32,14 @@ class SignPresenter extends \FrontendModule\BasePresenter
 		$form = new UI\Form;
 		$form->getElementPrototype()->class('ajax');
 		$form->addText('username', 'Uživatelské jméno:')
-			->setRequired('Zadejte uživatelské jméno.');
+			->setRequired('Zadejte uživatelské jméno.')->getControlPrototype()->tabindex(1);
 
 		$form->addPassword('password', 'Heslo:')->addRule(Form::MIN_LENGTH, 'Heslo musí mít alespoň %d znaků', 6)
-			->setRequired('Zadejte heslo.');
+			->setRequired('Zadejte heslo.')->getControlPrototype()->tabindex(2);
 
-		$form->addCheckbox('remember', 'Zapamatovat si mě zde.');
+		$form->addCheckbox('remember', 'Zapamatovat si mě zde.')->getControlPrototype()->tabindex(3);
 
-		$form->addSubmit('send', 'Přihlásit');
+		$form->addSubmit('send', 'Přihlásit')->getControlPrototype()->tabindex(4);
 
 		$form->onSubmit[] = callback($this, 'signInFormSubmitted');
 		return $form;
