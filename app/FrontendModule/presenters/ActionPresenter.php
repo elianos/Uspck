@@ -17,7 +17,10 @@ namespace FrontendModule;
  */
 class ActionPresenter extends BasePresenter
 {
-
+	
+	/**
+	 * Function preparing data for rendering actions 
+	 */
 	public function renderDefault()
 	{
 		$a = new \Models\ActionModel($this->context);
@@ -25,6 +28,9 @@ class ActionPresenter extends BasePresenter
 		$this->template->actions = $a->getActions($this->getParam('id'), $this->getParam('rok'));	
 	}
 	
+	/**
+	 * Function preparing data for rendering action detail
+	 */
 	public function renderDetail()
 	{
 		$g = new \Models\ActionModel($this->context);

@@ -42,12 +42,15 @@ class PagesPresenter extends BasePresenter
 		$grid->addColumn('order', 'Pořadí')->setSortable(true);
 		$grid->addToolbarWindowButton('create', 'Přidat záznam')->setHandler(function () use ($grid) {
 			echo $grid->presenter->createComponentAddForm($grid);
+			echo '<script type="text/javascript" src="'.$grid->presenter->template->baseUrl.'/js/live-form-validation.js"></script>';
 		});
 		$grid->addWindowButton('edit', 'Upravit')->setHandler(function ($row) use ($grid){
 			echo $grid->presenter->createComponentEditForm($row);
+			echo '<script type="text/javascript" src="'.$grid->presenter->template->baseUrl.'/js/live-form-validation.js"></script>';
 		});
 		$grid->addWindowButton('delete', 'Smazat')->setHandler(function ($row) use ($grid){
 			echo $grid->presenter->createComponentDeleteForm($row);
+			echo '<script type="text/javascript" src="'.$grid->presenter->template->baseUrl.'/js/live-form-validation.js"></script>';
 		});
 	}
 	
@@ -70,7 +73,7 @@ class PagesPresenter extends BasePresenter
 		$form->addText('rewrite', 'Adresa:')->setRequired('Zadejte adresu.');
 		$form->addSelect('module', 'Modul', $m);
 		$form->addCheckbox('active', 'Aktivní')->setDefaultValue(1);
-		$form->addText('order', 'Pořadí:')->setDefaultValue(0)->setRequired('Zadejte pořadí.');
+		$form->addText('order', 'Pořadí:')->setDefaultValue(0)->setRequired('Zadejte pořadí.')->addRule(Form::NUMERIC, 'Musí být číslo.');
 		$form->addSubmit('submit', 'Vytvořit');
 		$form->onSubmit[] = callback($this, 'addFormSubmitted');
 		return $form;
@@ -122,7 +125,7 @@ class PagesPresenter extends BasePresenter
 		$form->addText('metadata', 'Klíčová slova:')->setRequired('Zadejte klíčová slova.')->setDefaultValue($val->metadata);
 		$form->addText('rewrite', 'Adresa:')->setDefaultValue($val->rewrite);
 		$form->addCheckbox('active', 'Aktivní')->setDefaultValue($val->active);
-		$form->addText('order', 'Pořadí:')->setDefaultValue($val->order);
+		$form->addText('order', 'Pořadí:')->setDefaultValue($val->order)->addRule(Form::NUMERIC, 'Musí být číslo.');
 		$form->addHidden('id', $val->id);
 		$form->addSubmit('submit', 'Vytvořit');
 		$form->onSubmit[] = callback($this, 'editFormSubmitted');

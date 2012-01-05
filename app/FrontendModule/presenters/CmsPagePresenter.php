@@ -18,6 +18,10 @@ namespace FrontendModule;
 class CmsPagePresenter extends \FrontendModule\BasePresenter
 {
 
+	/**
+	 * Function preparing data for cms page
+	 */
+	
 	public function renderDefault()
 	{
 		$db = $this->context->getService('database');

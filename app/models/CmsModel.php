@@ -18,6 +18,10 @@ namespace Models;
  */
 class CmsModel extends BaseModel{
 	
+	/**
+	 * Edit cms
+	 * @param \Nette\Application\UI\Form $values
+	 */
 	public function editCms($values){
 		$id = $values['id'];
 		unset($values['id']);

@@ -22,8 +22,14 @@ use Nette\Diagnostics\Debugger,
  */
 class RouterPrepare{
 	
+	/** @var Nette\Application\Routers\Route */
 	private $router;
-		
+	
+	/**
+	 * Construnctor function preparing routes
+	 * @param \Nette\Database\Connection $connection
+	 * @param \Nette\Application\Routers\Route $router
+	 */
 	public function __construct($connection, $router) {
 		$this->router = $router;
 		foreach($connection->query('SELECT core_pages.*, core_modules.presenter, core_modules.action, core_webs.url FROM core_pages LEFT JOIN core_modules ON core_pages.core_modules_id = core_modules.id LEFT JOIN core_webs ON core_webs.id = core_pages.core_webs_id') as $r){
@@ -36,6 +42,10 @@ class RouterPrepare{
 		$this->router[] = new Route('admin[/<presenter>][/<action>][/<id>]', array('module' => 'Backend', 'presenter' => 'webs', 'action' => 'default', 'id' => null));
 	}
 
+	/**
+	 * Function getting routes
+	 * @return \Nette\Application\Routers\Route
+	 */
 	public function getRouter(){
 		return $this->router;
 	}

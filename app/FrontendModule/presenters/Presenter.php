@@ -19,7 +19,12 @@ namespace FrontendModule;
  */
 abstract class Presenter extends \Nette\Application\UI\Presenter
 {
-	
+	/**
+	 * Function preparing templates
+	 *
+	 * @author     Vlastimil Jinoch
+	 * @package    CMS system
+	 */
 	public function formatTemplateFiles()
 	{
 		$name = $this->getName();
@@ -44,6 +49,12 @@ abstract class Presenter extends \Nette\Application\UI\Presenter
 		);
 	}
 	
+	/**
+	 * Function preparing templates
+	 *
+	 * @author     Vlastimil Jinoch
+	 * @package    CMS system
+	 */
 	public function formatLayoutTemplateFiles()
 	{
 		$name = $this->getName();

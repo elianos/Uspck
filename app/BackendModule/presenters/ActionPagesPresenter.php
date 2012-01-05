@@ -61,12 +61,15 @@ class ActionPagesPresenter extends BasePresenter
 		$grid->addColumn('key', 'Klíč')->setSortable(true);
 		$grid->addWindowButton('edit', 'Upravit')->setHandler(function ($row) use ($grid){
 			echo $grid->presenter->createComponentEditTopicForm($row);
+			echo '<script type="text/javascript" src="'.$grid->presenter->template->baseUrl.'/js/live-form-validation.js"></script>';
 		});
 		$grid->addWindowButton('delete', 'Smazat')->setHandler(function ($row) use ($grid){
 			echo $grid->presenter->createComponentDeleteTopicForm($row);
+			echo '<script type="text/javascript" src="'.$grid->presenter->template->baseUrl.'/js/live-form-validation.js"></script>';
 		});
 		$grid->addToolbarWindowButton('create', 'Přidat topic')->setHandler(function () use ($grid) {
 			echo $grid->presenter->createComponentAddTopicForm($grid);
+			echo '<script type="text/javascript" src="'.$grid->presenter->template->baseUrl.'/js/live-form-validation.js"></script>';
 		});
 	}
 	

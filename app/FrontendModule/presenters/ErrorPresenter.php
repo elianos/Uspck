@@ -1,10 +1,10 @@
 <?php
 
 /**
- * My Application
+ * CMS system
  *
- * @copyright  Copyright (c) 2010 John Doe
- * @package    MyApplication
+ * @copyright  Copyright (c) 2012 Vlastimil Jinoch
+ * @package    CMSsystem
  */
 
 namespace FrontendModule;
@@ -17,8 +17,8 @@ use Nette\Diagnostics\Debugger,
 /**
  * Error presenter.
  *
- * @author     John Doe
- * @package    MyApplication
+ * @author     Vlastimil Jinoch
+ * @package    CMS system
  */
 class ErrorPresenter extends \FrontendModule\BasePresenter
 {

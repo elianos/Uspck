@@ -1,7 +1,18 @@
 <?php
+/**
+ * CMS system
+ *
+ * @copyright  Copyright (c) 2012 Vlastimil Jinoch
+ * @package    CMSsystem
+ */
 
 /**
- * Model base class.
+ * Model
+ * 
+ * Class preparing database connection for autentication
+ *
+ * @author     Vlastimil Jinoch
+ * @package    CMS system
  */
 class Model extends Nette\Object
 {

@@ -18,7 +18,9 @@ namespace FrontendModule;
 class GalleryPresenter extends \FrontendModule\BasePresenter
 {
 
-	
+	/**
+	 * Function preparing data for rendering galleries 
+	 */
 	public function renderDefault()
 	{
 		$g = new \Models\GalleryModel($this->context);
@@ -26,6 +28,9 @@ class GalleryPresenter extends \FrontendModule\BasePresenter
 		$this->template->topics = $g->getGalleryTopics($this->getParam('id'), $this->getParam('rok'));	
 	}
 	
+	/**
+	 * Function preparing data for gallery detail
+	 */
 	public function renderDetail()
 	{
 		$g = new \Models\GalleryModel($this->context);

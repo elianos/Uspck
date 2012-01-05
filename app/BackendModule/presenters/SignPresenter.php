@@ -9,7 +9,8 @@
 
 namespace BackendModule;
 
-use Nette\Application\UI,
+use \Nette\Application\UI\Form,
+	Nette\Application\UI,
 	Nette\Security as NS;
 
 
@@ -22,10 +23,6 @@ use Nette\Application\UI,
 class SignPresenter extends \FrontendModule\BasePresenter
 {
 
-	public function actionIn(){
-		
-	}
-
 	/**
 	 * Sign in form component factory.
 	 * @return Nette\Application\UI\Form
@@ -37,7 +34,7 @@ class SignPresenter extends \FrontendModule\BasePresenter
 		$form->addText('username', 'Uživatelské jméno:')
 			->setRequired('Zadejte uživatelské jméno.');
 
-		$form->addPassword('password', 'Heslo:')
+		$form->addPassword('password', 'Heslo:')->addRule(Form::MIN_LENGTH, 'Heslo musí mít alespoň %d znaků', 6)
 			->setRequired('Zadejte heslo.');
 
 		$form->addCheckbox('remember', 'Zapamatovat si mě zde.');
@@ -49,7 +46,10 @@ class SignPresenter extends \FrontendModule\BasePresenter
 	}
 
 
-
+	/**
+	 * Function data processing of sing in form
+	 * @param \Nette\Application\UI\Form $form
+	 */
 	public function signInFormSubmitted($form)
 	{
 		try {
@@ -68,7 +68,6 @@ class SignPresenter extends \FrontendModule\BasePresenter
 		} catch (\Nette\Security\AuthenticationException $e) {
 			$form->addError($e->getMessage());
 			if($this->isAjax()){
-				//$form->setValues(array(), TRUE);
 				$this->invalidateControl('flashMessages');
 		        $this->invalidateControl('form');
 			}
@@ -76,7 +75,9 @@ class SignPresenter extends \FrontendModule\BasePresenter
 	}
 
 
-
+	/**
+	 * Function signing out user
+	 */
 	public function actionOut()
 	{
 		$this->getUser()->logout();

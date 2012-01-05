@@ -67,9 +67,11 @@ class GalleryPagesPresenter extends BasePresenter
 		});
 		$grid->addWindowButton('delete', 'Smazat')->setHandler(function ($row) use ($grid){
 			echo $grid->presenter->createComponentDeleteTopicForm($row);
+			echo '<script type="text/javascript" src="'.$grid->presenter->template->baseUrl.'/js/live-form-validation.js"></script>';
 		});
 		$grid->addToolbarWindowButton('create', 'Přidat topic')->setHandler(function () use ($grid) {
 			echo $grid->presenter->createComponentAddTopicForm($grid);
+			echo '<script type="text/javascript" src="'.$grid->presenter->template->baseUrl.'/js/live-form-validation.js"></script>';
 		});
 
 	}
@@ -184,12 +186,15 @@ class GalleryPagesPresenter extends BasePresenter
 		$grid->addColumn('date', 'Datum')->setSortable(true);
 		$grid->addWindowButton('main', 'Hlavní')->setHandler(function ($row) use ($grid){
 			echo $grid->presenter->createComponentMainDetailForm($row);
+			echo '<script type="text/javascript" src="'.$grid->presenter->template->baseUrl.'/js/live-form-validation.js"></script>';
 		});
 		$grid->addWindowButton('delete', 'Smazat')->setHandler(function ($row) use ($grid){
 			echo $grid->presenter->createComponentDeleteDetailForm($row);
+			echo '<script type="text/javascript" src="'.$grid->presenter->template->baseUrl.'/js/live-form-validation.js"></script>';
 		});
 		$grid->addToolbarWindowButton('create', 'Přidat foto')->setHandler(function () use ($grid) {
 			echo $grid->presenter->createComponentAddDetailForm($grid);
+			echo '<script type="text/javascript" src="'.$grid->presenter->template->baseUrl.'/js/live-form-validation.js"></script>';
 		});
 	}
 	

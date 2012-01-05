@@ -107,4 +107,9 @@ body#login{
 	background: #eaa;
 	border: 1px solid #c00;
 }
+.form-error-message{
+	color: #c00;
+	font-size: 0.8em;
+	positio: relative;
+	display: block;
 }

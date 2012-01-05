@@ -1,13 +1,21 @@
 <?php
 
+/**
+ * CMS system
+ *
+ * @copyright  Copyright (c) 2012 Vlastimil Jinoch
+ * @package    CMSsystem
+ */
+
 use \Nette\Security as NS;
 
 /**
  * Users authenticator.
  *
- * @author     John Doe
- * @package    MyApplication
+ * @author     Vlastimil Jinoch
+ * @package    CMS system
  */
+
 class MyAuthenticator extends \Nette\Object implements NS\IAuthenticator
 {
 	/** @var Nette\Database\Table\Selection */

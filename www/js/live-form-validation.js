@@ -425,3 +425,9 @@ Nette.addEvent(window, 'load', function () {
 		Nette.initForm(document.forms[i]);
 	}
 });
+
+function runValidation(){
+	for (var i = 0; i < document.forms.length; i++) {
+		Nette.initForm(document.forms[i]);
+	}
+}

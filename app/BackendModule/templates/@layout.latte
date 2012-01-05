@@ -17,14 +17,12 @@
 	<!-- jQuery, jQuery UI & livequery -->
 	<script type="text/javascript" src="{$basePath}/js/jquery.min.js"></script>
 	<script type="text/javascript" src="{$basePath}/js/jquery-ui-1.8.16.custom.min.js"></script>
-	<script src="{$basePath}/js/jquery-ui.min.js" type="text/javascript"></script>
+
 
 	<script type="text/javascript" src="{$basePath}/js/jquery.ui.gridito.js"></script>
 	<script type="text/javascript" src="{$basePath}/js/jquery.livequery.js"></script>
 
-	<script type="text/javascript" src="{$basePath}/js/jquery.nette.js"></script>
 	<script type="text/javascript" src="{$basePath}/js/live-form-validation.js"></script>
-	
 	
 	<script type="text/javascript">
 		// gridito init
@@ -32,14 +30,20 @@
 			$(this).gridito();
 		});
 		
-		$("div.gridito input").livequery(function () {
-			$(this).gridito();
-		});
-	
 		// nette ajax init
 		$("a.ajax").live("click", function (event) {
 			event.preventDefault();
 			$.get(this.href);
+		});
+		
+		$.ajaxSetup({
+			url: "test.html",   
+			context: document.body,
+
+		    success: function() {
+		    	runValidation();
+		    }
+
 		});
 	</script>
 	
@@ -57,7 +61,6 @@
 		<li><a n:href="sign:out">Odhlásit se</a></li>
 	</ul>
 	<div n:foreach="$flashes as $flash" class="flash {$flash->type}">{$flash->message}</div>
-	{dump}
 	{include #content}
 </body>
 </html>

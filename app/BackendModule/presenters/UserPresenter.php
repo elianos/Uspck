@@ -34,9 +34,11 @@ class UserPresenter extends BasePresenter
 		$grid->addColumn('nickname', 'Nickname')->setSortable(true);
 		$grid->addToolbarWindowButton('create', 'Přidat uživatele')->setHandler(function () use ($grid) {
 			echo $grid->presenter->createComponentAddForm($grid);
+			echo '<script type="text/javascript" src="'.$grid->presenter->template->baseUrl.'/js/live-form-validation.js"></script>';
 		});
 		$grid->addWindowButton('edit', 'Upravit')->setHandler(function ($row) use ($grid) {
 			echo $grid->presenter->createComponentEditForm($row);
+			echo '<script type="text/javascript" src="'.$grid->presenter->template->baseUrl.'/js/live-form-validation.js"></script>';
 		});
 	}	
 	
