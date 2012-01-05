@@ -30,7 +30,7 @@ $configurator->loadConfig(__DIR__ . '/config.neon');
 // Configure application
 $application = $configurator->container->application;
 $application->errorPresenter = 'Error';
-$application->catchExceptions = TRUE;
+//$application->catchExceptions = TRUE;
 
 // Route prepare
 $db = $configurator->container->getService('database');

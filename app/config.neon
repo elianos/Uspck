@@ -18,7 +18,7 @@ common:
 
 		database:
 			class: Nette\Database\Connection
-			arguments: ['mysql:host=elianos.buk.cvut.cz;dbname=uspck', 'root', '']
+			arguments: ['mysql:host=elianos.buk.cvut.cz;dbname=cms', 'root', '']
 			run: true
 
 		authenticator:

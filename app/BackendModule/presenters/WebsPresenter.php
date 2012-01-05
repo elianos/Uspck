@@ -39,6 +39,7 @@ class WebsPresenter extends BasePresenter
 			$db = $grid->presenter->context->getService('database');
 			$res = $db->table('core_pages')->where('core_webs_id', $row->id)->select('core_pages.id')->fetchPairs('id');
 			$i = 0;
+			$pages = array();
 			foreach($res as $r){
 				$pages[$i++] = $r['id'];	
 			}

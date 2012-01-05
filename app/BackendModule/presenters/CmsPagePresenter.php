@@ -37,7 +37,6 @@ class CmsPagePresenter extends BasePresenter
 		$grid->addColumn('content', 'Obsah')->setSortable(true);
 		$grid->addWindowButton('edit', 'Upravit')->setHandler(function ($row) use ($grid){
 			echo $grid->presenter->createComponentEditForm($row);
-			echo '<script type="text/javascript" src="'.$grid->presenter->template->baseUrl.'/js/live-form-validation.js"></script>';
 		});
 	}
 	

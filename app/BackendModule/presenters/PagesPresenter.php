@@ -36,7 +36,7 @@ class PagesPresenter extends BasePresenter
 		$grid->addColumn('name', 'Jméno')->setSortable(true);
 		$grid->addColumn('title', 'Popis')->setSortable(true);
 		$grid->addColumn('rewrite', 'Adresa')->setSortable(true);
-		$grid->addColumn('module_name', 'Name')->setSortable(true);
+		$grid->addColumn('module_name', 'Modul')->setSortable(true);
 		$grid->addColumn('active', 'Aktivní')->setSortable(true);
 		$grid->addColumn('home', 'Domovská stránka')->setSortable(true);
 		$grid->addColumn('order', 'Pořadí')->setSortable(true);
@@ -73,6 +73,7 @@ class PagesPresenter extends BasePresenter
 		$form->addText('rewrite', 'Adresa:')->setRequired('Zadejte adresu.');
 		$form->addSelect('module', 'Modul', $m);
 		$form->addCheckbox('active', 'Aktivní')->setDefaultValue(1);
+		$form->addCheckbox('home', 'Úvodní strana')->setDefaultValue(0);
 		$form->addText('order', 'Pořadí:')->setDefaultValue(0)->setRequired('Zadejte pořadí.')->addRule(Form::NUMERIC, 'Musí být číslo.');
 		$form->addSubmit('submit', 'Vytvořit');
 		$form->onSubmit[] = callback($this, 'addFormSubmitted');
@@ -93,13 +94,26 @@ class PagesPresenter extends BasePresenter
 				'metadata' => $values->metadata,
 				'rewrite' => $values->rewrite,
 				'core_modules_id' => $values->module,
-				'home' => 0,
+				'home' => $values->home,
 				'active' => $values->active,
 				'order' => $values->order,
 				'core_webs_id' => $section->id
 			);
 		$db = $this->context->getService('database');
 		$db->exec('INSERT INTO core_pages', $core_pages);
+		
+		
+		$section = $this->session->getNamespace('web');
+		$db = $this->context->getService('database');
+		$res = $db->table('core_pages')->where('core_webs_id', $section->id)->select('core_pages.id')->fetchPairs('id');
+		$i = 0;
+		$pages = array();
+		foreach($res as $r){
+			$pages[$i++] = $r['id'];	
+		}
+		$section->pages = $pages;
+		
+		
 		$id = $db->query('SELECT MAX(id) AS id FROM core_pages')->fetch();
 		$module = $db->table('core_modules')->where('id', $values->module)->fetch();
 		$page = array(
@@ -108,6 +122,7 @@ class PagesPresenter extends BasePresenter
 			);
 		$db->exec('INSERT INTO '.$module['module_name'], $page);
 		$_url = $module['presenter'].':';
+		echo $_url;
 		$this->redirect($_url, array('open' => $id[0]));
 	}
 	
