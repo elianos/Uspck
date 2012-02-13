@@ -61,6 +61,15 @@ form label{
 	padding-left: 7px;
 	width: 100%;
 }
+form td label{
+	display: inline;
+	text-align: left;
+	padding-left: 3px;
+	width: 100%;
+	font-weight: bold;
+	top: -3px;
+	position: relative;
+}
 label.required{
 	background: url('../images/star.png') no-repeat top left;
 }
@@ -109,7 +118,7 @@ body#login{
 }
 .form-error-message{
 	color: #c00;
-	font-size: 0.8em;
+	font-size: 1em;
 	positio: relative;
 	display: block;
 }

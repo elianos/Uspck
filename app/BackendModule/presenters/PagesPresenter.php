@@ -32,6 +32,7 @@ class PagesPresenter extends BasePresenter
 		$model = new \Gridito\NetteDatabaseModel($res);
 		$grid = new \Gridito\Grid($this, $name);
 		$grid->setModel($model);
+		$grid->setItemsPerPage(15);
 		$grid->addColumn('id', 'ID')->setSortable(true);
 		$grid->addColumn('name', 'Jméno')->setSortable(true);
 		$grid->addColumn('title', 'Popis')->setSortable(true);

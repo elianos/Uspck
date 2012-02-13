@@ -51,7 +51,11 @@ class MyAuthenticator extends \Nette\Object implements NS\IAuthenticator
 		}
 
 		unset($row->password);
-		return new \Nette\Security\Identity($row->nickname, 'admin', $row->toArray());
+		$role = 'user';
+		if ($row->admin == 1){
+			$role = 'admin';
+		}
+		return new \Nette\Security\Identity($row->nickname, $role, $row->toArray());
 	}
 
 

@@ -27,7 +27,13 @@ class WebsPresenter extends BasePresenter
 	 */
 	protected function createComponentWebGrid($name){
         $db = $this->context->getService('database');
-		$res = $db->table('core_webs');
+		$data = $this->getUser()->getIdentity()->getData();
+
+	 	if($this->getUser()->getId() == 'admin'){
+			$res = $db->table('core_webs');
+        }else{
+        	$res = $db->table('core_webs')->where("id", $db->table('core_laws')->where('core_users_id', $data['id'])->select('core_webs_id'));
+        }
 		$model = new \Gridito\NetteDatabaseModel($res);
 		$grid = new \Gridito\Grid($this, $name);
 		$grid->setModel($model);

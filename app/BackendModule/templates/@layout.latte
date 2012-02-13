@@ -17,6 +17,8 @@
 	<!-- jQuery, jQuery UI & livequery -->
 	<script type="text/javascript" src="{$basePath}/js/jquery.min.js"></script>
 	<script type="text/javascript" src="{$basePath}/js/jquery-ui-1.8.16.custom.min.js"></script>
+	
+	<script type="text/javascript" src="{$basePath}/js/tiny_mce/tiny_mce.js"></script>
 
 
 	<script type="text/javascript" src="{$basePath}/js/jquery.ui.gridito.js"></script>
@@ -28,12 +30,6 @@
 		// gridito init
 		$("div.gridito").livequery(function () {
 			$(this).gridito();
-		});
-		
-		// nette ajax init
-		$("a.ajax").live("click", function (event) {
-			event.preventDefault();
-			$.get(this.href);
 		});
 		
 		$.ajaxSetup({
