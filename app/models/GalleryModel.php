@@ -76,7 +76,7 @@ class GalleryModel extends BaseModel {
 	 * @param String $name
 	 */
 	public function createImages($image, $name){
-		$this->saveImage($image, $name, 1200, 900, 'full');
+		$this->saveImage($image, $name, 800, 600, 'full');
 		$this->saveImage($image, $name, 320, 240, 'med');
 		$this->saveImage($image, $name, 110, 73, 'min');
 	}

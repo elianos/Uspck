@@ -181,9 +181,11 @@ class GalleryPagesPresenter extends BasePresenter
 		$grid->setModel($model);
 		$grid->addColumn('id', 'ID')->setRenderer(function ($row) use ($grid){
 			echo '<img src="'.$grid->template->baseUrl.'/../media/gallery/min/'.$row->id.'.jpg" />';
-			echo $row->id;
+			//echo $row->id;
 		});
-		$grid->addColumn('date', 'Datum')->setSortable(true);
+		$grid->addColumn('date', 'Datum')->setSortable(true)->setRenderer(function ($row) use ($grid){
+			echo date('m.d. Y', $row->date);
+		});
 		$grid->addWindowButton('main', 'Hlavní')->setHandler(function ($row) use ($grid){
 			echo $grid->presenter->createComponentMainDetailForm($row);
 			echo '<script type="text/javascript" src="'.$grid->presenter->template->baseUrl.'/js/live-form-validation.js"></script>';

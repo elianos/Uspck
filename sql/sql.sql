@@ -2,8 +2,8 @@
 -- version 3.3.9
 -- http://www.phpmyadmin.net
 --
--- Poèítaè: elianos.buk.cvut.cz
--- Vygenerováno: Ètvrtek 05. ledna 2012, 10:34
+-- Poï¿½ï¿½taï¿½: elianos.buk.cvut.cz
+-- Vygenerovï¿½no: ï¿½tvrtek 05. ledna 2012, 10:34
 -- Verze MySQL: 5.5.15
 -- Verze PHP: 5.3.5
 
@@ -16,7 +16,7 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Databáze: `cms`
+-- Databï¿½ze: `cms`
 --
 
 -- --------------------------------------------------------
@@ -146,8 +146,8 @@ CREATE TABLE IF NOT EXISTS `core_users` (
 -- Vypisuji data pro tabulku `core_users`
 --
 
-INSERT INTO `core_users` (`id`, `nickname`, `password`) VALUES
-(6, 'admin', 'f1f04db029edf9a2f24bfa5960d8ff73');
+INSERT INTO `core_users` (`nickname`, `password`, `admin`) VALUES
+('admin', 'f1f04db029edf9a2f24bfa5960d8ff73', 1);
 
 -- --------------------------------------------------------
 
@@ -233,47 +233,47 @@ CREATE TABLE IF NOT EXISTS `gallery_topics` (
 
 
 --
--- Omezení pro exportované tabulky
+-- Omezenï¿½ pro exportovanï¿½ tabulky
 --
 
 --
--- Omezení pro tabulku `action_detail`
+-- Omezenï¿½ pro tabulku `action_detail`
 --
 ALTER TABLE `action_detail`
   ADD CONSTRAINT `action_detail_ibfk_1` FOREIGN KEY (`action_pages_id`) REFERENCES `action_pages` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Omezení pro tabulku `action_pages`
+-- Omezenï¿½ pro tabulku `action_pages`
 --
 ALTER TABLE `action_pages`
   ADD CONSTRAINT `action_pages_ibfk_1` FOREIGN KEY (`id`) REFERENCES `core_pages` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Omezení pro tabulku `cms_pages`
+-- Omezenï¿½ pro tabulku `cms_pages`
 --
 ALTER TABLE `cms_pages`
   ADD CONSTRAINT `cms_pages_ibfk_1` FOREIGN KEY (`id`) REFERENCES `core_pages` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Omezení pro tabulku `core_pages`
+-- Omezenï¿½ pro tabulku `core_pages`
 --
 ALTER TABLE `core_pages`
   ADD CONSTRAINT `core_pages_ibfk_1` FOREIGN KEY (`core_webs_id`) REFERENCES `core_webs` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Omezení pro tabulku `gallery_images`
+-- Omezenï¿½ pro tabulku `gallery_images`
 --
 ALTER TABLE `gallery_images`
   ADD CONSTRAINT `gallery_images_ibfk_1` FOREIGN KEY (`gallery_topics_id`) REFERENCES `gallery_topics` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Omezení pro tabulku `gallery_pages`
+-- Omezenï¿½ pro tabulku `gallery_pages`
 --
 ALTER TABLE `gallery_pages`
   ADD CONSTRAINT `gallery_pages_ibfk_1` FOREIGN KEY (`id`) REFERENCES `core_pages` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Omezení pro tabulku `gallery_topics`
+-- Omezenï¿½ pro tabulku `gallery_topics`
 --
 ALTER TABLE `gallery_topics`
   ADD CONSTRAINT `gallery_topics_ibfk_1` FOREIGN KEY (`gallery_pages_id`) REFERENCES `gallery_pages` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+	<meta name="description" content="Cms system">
+	<meta name="robots" content="{$robots}" n:ifset="$robots">
+
+	<title>{$title}</title>
+
+	<link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/spolecne/css/screen.css" type="text/css" />
+	<link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/css/jquery.lightbox-0.5.css" type="text/css" />
+	<link rel="shortcut icon" href="{$basePath}/images/favico.png" type="image/png" />
+
+	<script type="text/javascript" src="{$basePath}/js/jquery.min.js"></script>
+	<script type="text/javascript" src="{$basePath}/js/jquery.lightbox-0.5.min.js"></script>
+	<script type="text/javascript" src="{$basePath}/js/netteForms.js"></script>
+	{block head}{/block}
+</head>
+
+<body>
+	<div id="header">
+		<div class="content">
+			<a id="logo" href="{$basePath}"><img src="{$basePath}/spolecne/images/logo.png" alt="Domov pro osoby se zdravotním postižením Oleška - Kamenice" /></a>
+			<img id="slogan" src="{$basePath}/spolecne/images/slogan.png" alt="'Každý den je nový začátek' Seneca" />
+			<ul id="navigation">
+				{foreach $navigation_list as $part}
+					<li><a n:href="$part->presenter.':'.$part->action, 'id' => $part->id">{$part->name}</a></li>
+				{/foreach}
+			</ul>
+		</div>
+	</div>
+	<div id="main">
+		<div n:foreach="$flashes as $flash" class="flash {$flash->type}">{$flash->message}</div>
+		{include #content}
+	</div>
+
+</body>
+</html>
