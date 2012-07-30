@@ -2,9 +2,9 @@
 -- version 3.3.9
 -- http://www.phpmyadmin.net
 --
--- Po��ta�: elianos.buk.cvut.cz
--- Vygenerov�no: �tvrtek 05. ledna 2012, 10:34
--- Verze MySQL: 5.5.15
+-- Počítač: elianos.buk.cvut.cz
+-- Vygenerováno: Pondělí 30. července 2012, 18:53
+-- Verze MySQL: 5.5.25
 -- Verze PHP: 5.3.5
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
@@ -16,7 +16,7 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Datab�ze: `cms`
+-- Databáze: `uspck`
 --
 
 -- --------------------------------------------------------
@@ -36,11 +36,6 @@ CREATE TABLE IF NOT EXISTS `action_detail` (
   KEY `action_pages_id` (`action_pages_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=279 ;
 
---
--- Vypisuji data pro tabulku `action_detail`
---
-
-
 -- --------------------------------------------------------
 
 --
@@ -53,11 +48,6 @@ CREATE TABLE IF NOT EXISTS `action_pages` (
   `active` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Vypisuji data pro tabulku `action_pages`
---
-
 
 -- --------------------------------------------------------
 
@@ -72,10 +62,18 @@ CREATE TABLE IF NOT EXISTS `cms_pages` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
+
 --
--- Vypisuji data pro tabulku `cms_pages`
+-- Struktura tabulky `core_laws`
 --
 
+CREATE TABLE IF NOT EXISTS `core_laws` (
+  `core_users_id` int(11) NOT NULL,
+  `core_webs_id` int(11) NOT NULL,
+  PRIMARY KEY (`core_users_id`,`core_webs_id`),
+  KEY `core_webs_id` (`core_webs_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -90,16 +88,7 @@ CREATE TABLE IF NOT EXISTS `core_modules` (
   `action` varchar(20) COLLATE utf8_czech_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `presenter` (`presenter`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci AUTO_INCREMENT=4 ;
-
---
--- Vypisuji data pro tabulku `core_modules`
---
-
-INSERT INTO `core_modules` (`id`, `module_name`, `presenter`, `action`) VALUES
-(1, 'cms_pages', 'CmsPage', 'default'),
-(2, 'action_pages', 'ActionPages', 'default'),
-(3, 'gallery_pages', 'GalleryPages', 'default');
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci AUTO_INCREMENT=5 ;
 
 -- --------------------------------------------------------
 
@@ -122,10 +111,19 @@ CREATE TABLE IF NOT EXISTS `core_pages` (
   KEY `core_webs_id` (`core_webs_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci AUTO_INCREMENT=69 ;
 
+-- --------------------------------------------------------
+
 --
--- Vypisuji data pro tabulku `core_pages`
+-- Struktura tabulky `core_pictures`
 --
 
+CREATE TABLE IF NOT EXISTS `core_pictures` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `core_webs_id` int(11) NOT NULL,
+  `date` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `core_webs_id` (`core_webs_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
 
 -- --------------------------------------------------------
 
@@ -134,6 +132,7 @@ CREATE TABLE IF NOT EXISTS `core_pages` (
 --
 
 CREATE TABLE IF NOT EXISTS `core_users` (
+  `admin` tinyint(1) NOT NULL,
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nickname` varchar(20) CHARACTER SET utf8 COLLATE utf8_czech_ci NOT NULL,
   `password` varchar(32) CHARACTER SET utf8 COLLATE utf8_czech_ci NOT NULL,
@@ -141,13 +140,6 @@ CREATE TABLE IF NOT EXISTS `core_users` (
   UNIQUE KEY `nickname_2` (`nickname`),
   KEY `nickname` (`nickname`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
-
---
--- Vypisuji data pro tabulku `core_users`
---
-
-INSERT INTO `core_users` (`nickname`, `password`, `admin`) VALUES
-('admin', 'f1f04db029edf9a2f24bfa5960d8ff73', 1);
 
 -- --------------------------------------------------------
 
@@ -163,12 +155,35 @@ CREATE TABLE IF NOT EXISTS `core_webs` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
+-- --------------------------------------------------------
+
 --
--- Vypisuji data pro tabulku `core_webs`
+-- Struktura tabulky `download_detail`
 --
 
-INSERT INTO `core_webs` (`id`, `url`, `name`, `template`) VALUES
-(3, '', 'cms', 'new');
+CREATE TABLE IF NOT EXISTS `download_detail` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_czech_ci NOT NULL,
+  `time` int(11) NOT NULL,
+  `text` varchar(255) CHARACTER SET utf8 COLLATE utf8_czech_ci NOT NULL,
+  `size` int(11) NOT NULL,
+  `download_pages_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `download_pages_id` (`download_pages_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabulky `download_pages`
+--
+
+CREATE TABLE IF NOT EXISTS `download_pages` (
+  `id` int(11) NOT NULL,
+  `name` varchar(20) CHARACTER SET utf8 COLLATE utf8_czech_ci DEFAULT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -184,12 +199,7 @@ CREATE TABLE IF NOT EXISTS `gallery_images` (
   `for_slimbox` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `gallery_topics_id` (`gallery_topics_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=19 ;
-
---
--- Vypisuji data pro tabulku `gallery_images`
---
-
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=22 ;
 
 -- --------------------------------------------------------
 
@@ -204,11 +214,6 @@ CREATE TABLE IF NOT EXISTS `gallery_pages` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Vypisuji data pro tabulku `gallery_pages`
---
-
-
 -- --------------------------------------------------------
 
 --
@@ -220,60 +225,80 @@ CREATE TABLE IF NOT EXISTS `gallery_topics` (
   `name` varchar(100) CHARACTER SET utf8 COLLATE utf8_czech_ci NOT NULL,
   `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_czech_ci NOT NULL,
   `gallery_images_id` int(11) DEFAULT NULL,
-  `key` varchar(10) CHARACTER SET utf8 COLLATE utf8_czech_ci NOT NULL,
-  `date` int(11) NOT NULL,
+  `key` varchar(100) CHARACTER SET utf8 COLLATE utf8_czech_ci NOT NULL,
+  `date` int(11) DEFAULT NULL,
   `gallery_pages_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `gallery_pages_id` (`gallery_pages_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
 
 --
--- Vypisuji data pro tabulku `gallery_topics`
---
-
-
---
--- Omezen� pro exportovan� tabulky
+-- Omezení pro exportované tabulky
 --
 
 --
--- Omezen� pro tabulku `action_detail`
+-- Omezení pro tabulku `action_detail`
 --
 ALTER TABLE `action_detail`
   ADD CONSTRAINT `action_detail_ibfk_1` FOREIGN KEY (`action_pages_id`) REFERENCES `action_pages` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Omezen� pro tabulku `action_pages`
+-- Omezení pro tabulku `action_pages`
 --
 ALTER TABLE `action_pages`
   ADD CONSTRAINT `action_pages_ibfk_1` FOREIGN KEY (`id`) REFERENCES `core_pages` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Omezen� pro tabulku `cms_pages`
+-- Omezení pro tabulku `cms_pages`
 --
 ALTER TABLE `cms_pages`
   ADD CONSTRAINT `cms_pages_ibfk_1` FOREIGN KEY (`id`) REFERENCES `core_pages` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Omezen� pro tabulku `core_pages`
+-- Omezení pro tabulku `core_laws`
+--
+ALTER TABLE `core_laws`
+  ADD CONSTRAINT `core_laws_ibfk_1` FOREIGN KEY (`core_users_id`) REFERENCES `core_webs` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `core_laws_ibfk_2` FOREIGN KEY (`core_webs_id`) REFERENCES `core_webs` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Omezení pro tabulku `core_pages`
 --
 ALTER TABLE `core_pages`
   ADD CONSTRAINT `core_pages_ibfk_1` FOREIGN KEY (`core_webs_id`) REFERENCES `core_webs` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Omezen� pro tabulku `gallery_images`
+-- Omezení pro tabulku `core_pictures`
+--
+ALTER TABLE `core_pictures`
+  ADD CONSTRAINT `core_pictures_ibfk_1` FOREIGN KEY (`core_webs_id`) REFERENCES `core_webs` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Omezení pro tabulku `download_detail`
+--
+ALTER TABLE `download_detail`
+  ADD CONSTRAINT `download_detail_ibfk_1` FOREIGN KEY (`download_pages_id`) REFERENCES `download_pages` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Omezení pro tabulku `download_pages`
+--
+ALTER TABLE `download_pages`
+  ADD CONSTRAINT `download_pages_ibfk_1` FOREIGN KEY (`id`) REFERENCES `core_pages` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Omezení pro tabulku `gallery_images`
 --
 ALTER TABLE `gallery_images`
   ADD CONSTRAINT `gallery_images_ibfk_1` FOREIGN KEY (`gallery_topics_id`) REFERENCES `gallery_topics` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Omezen� pro tabulku `gallery_pages`
+-- Omezení pro tabulku `gallery_pages`
 --
 ALTER TABLE `gallery_pages`
   ADD CONSTRAINT `gallery_pages_ibfk_1` FOREIGN KEY (`id`) REFERENCES `core_pages` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Omezen� pro tabulku `gallery_topics`
+-- Omezení pro tabulku `gallery_topics`
 --
 ALTER TABLE `gallery_topics`
   ADD CONSTRAINT `gallery_topics_ibfk_1` FOREIGN KEY (`gallery_pages_id`) REFERENCES `gallery_pages` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;

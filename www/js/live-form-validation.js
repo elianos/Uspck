@@ -446,7 +446,6 @@ tinyMCE.init({
 	
 	language : "cs",
 
-
 	// Theme options
 
 	theme_advanced_buttons1 : "bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,formatselect,fontselect,fontsizeselect",
@@ -506,12 +505,13 @@ $('textarea').tinymce({
 	theme : "advanced",
 	plugins : "autolink,lists,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,advlist",
 	language: 'cs',
+	convert_urls : false,
 	
 	// Theme options
-	theme_advanced_buttons1 : "save,newdocument,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,styleselect,formatselect,fontselect,fontsizeselect",
-	theme_advanced_buttons2 : "cut,copy,paste,pastetext,pasteword,|,search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,image,cleanup,help,code,|,insertdate,inserttime,preview,|,forecolor,backcolor",
-	theme_advanced_buttons3 : "tablecontrols,|,hr,removeformat,visualaid,|,sub,sup,|,charmap,emotions,iespell,media,advhr,|,print,|,ltr,rtl,|,fullscreen",
-	theme_advanced_buttons4 : "insertlayer,moveforward,movebackward,absolute,|,styleprops,|,cite,abbr,acronym,del,ins,attribs,|,visualchars,nonbreaking,template,pagebreak",
+	theme_advanced_buttons1 : "save,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,formatselect,fontsizeselect,bullist,numlist,|,outdent,indent,blockquote",
+	theme_advanced_buttons2 : "undo,redo,|,link,unlink,image,|,preview,|,forecolor,backcolor",
+	theme_advanced_buttons3 : "tablecontrols,|,hr,visualaid,|,sub,sup,|,charmap,iespell,|,fullscreen",
+	theme_advanced_buttons4 : "nonbreaking,template",
 	theme_advanced_toolbar_location : "top",
 	theme_advanced_toolbar_align : "left",
 	theme_advanced_statusbar_location : "bottom",
@@ -539,9 +539,14 @@ $('textarea').tinymce({
 	                              description : "Jeden sloupec"
 	                      },
 	                      {
-	                              title : "2 sloupce",
-	                              src : "../lists/2-columns.html",
-	                              description : "Dva sloupce"
+                              title : "2 sloupce",
+                              src : "../lists/2-columns.html",
+                              description : "Dva sloupce"
+	                      },
+	                      {
+	                          title : "1 a 2 sloupce",
+	                          src : "../lists/1-2-columns.html",
+	                          description : "Jeden-Dva sloupce"
 	                      }
 	              ]
 });

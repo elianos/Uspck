@@ -43,6 +43,7 @@ class PictureModel extends BaseModel {
 	 */
 	public function createImages($image, $name){
 		$this->saveImage($image, $name, 1280, 1024);
+		$this->saveImage($image, $name.'-min', 100, 100);
 	}
 	
 	/**
@@ -65,7 +66,7 @@ class PictureModel extends BaseModel {
 	 */
 	public function deleteImage($imageId){
 		$db = $this->context->getService('database');
-		$db->exec('DELETE FROM gallery_images WHERE id=?', $imageId);
+		$db->exec('DELETE FROM core_pictures WHERE id=?', $imageId);
 		$this->deleteImages($imageId);
 	}
 
@@ -74,9 +75,7 @@ class PictureModel extends BaseModel {
 	 * @param Integer $imageId
 	 */
 	public function deleteImages($imageId){
-		$this->deleteFile($imageId, 'full');
-		$this->deleteFile($imageId, 'med');
-		$this->deleteFile($imageId, 'min');
+		$this->deleteFile($imageId);
 	}
 	
 	/**
@@ -84,8 +83,9 @@ class PictureModel extends BaseModel {
 	 * @param Integer $imageId
 	 * @param String $type
 	 */
-	public function deleteFile($imageId, $type){
-		unlink($_SERVER['DOCUMENT_ROOT'].$this->baseUrl.$type.'/'.$imageId.'.jpg');
+	public function deleteFile($imageId){
+		unlink($_SERVER['DOCUMENT_ROOT'].$this->baseUrl.$imageId.'.jpg');
+		unlink($_SERVER['DOCUMENT_ROOT'].$this->baseUrl.$imageId.'-min.jpg');
 	}
 	
 	/**
@@ -93,8 +93,8 @@ class PictureModel extends BaseModel {
 	 * @param String $name
 	 * @param String $type
 	 */
-	public static function getImageUrl($name, $type){
-		return $this->baseUrl.'/'.$type.'/'.$name.'.jpg';
+	public function getImageUrl($name){
+		return $this->baseUrl.$name.'.jpg';
 	}
 	
 	

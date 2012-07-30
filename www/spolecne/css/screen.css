@@ -1,8 +1,9 @@
 body {
-	background: #444 url('../images/bg.png') center;
+	background: #fff;
 	color: #333;
-	font: 16px/1.5 "Trebuchet MS", "Geneva CE", lucida, sans-serif;
+	font: 11px/1.5 Verdana, Arial, Helvetica, sans-serif;
 	margin: 0;
+	
 }
 
 a{
@@ -46,7 +47,9 @@ a[href^="error:"] {
 #header{
 	background: url('../images/header-bg.png') repeat-x;
 	height: 159px;
+	position: relative;
 	width: 100%;
+	z-index: 2;
 }
 #header .content{
 	margin: 0 auto;
@@ -70,7 +73,7 @@ a[href^="error:"] {
 #header .content #navigation{
 	float: left;
 	list-style: none;
-	margin-top: 17px;
+	margin-top: 19px;
 	text-align: center;
 	vertical-align: middle;
 	width: 100%;
@@ -86,7 +89,7 @@ a[href^="error:"] {
 
 #header .content #navigation li a{
 	color: #fff;
-	font-size: 18px;
+	font-size: 16px;
 	font-weight: bold;
 	text-decoration: none;
 	text-transform: uppercase;
@@ -95,7 +98,14 @@ a[href^="error:"] {
 #header .content #navigation li a:hover{
 	color: #9e8b9b;
 }
-
+#wraper{
+	background: #444 url('../images/bg.png') center;
+	margin: -20px 0 -20px 0;
+	padding: 20px 0 40px 0;
+	min-height: 350px;
+	width: 100%;
+	z-index: 1;
+}
 #main{
 	margin: 0 auto;
 	width: 878px;
@@ -111,4 +121,21 @@ a[href^="error:"] {
 	margin-top: 20px;
 	vertical-align: top;
 	width: 848px;
+}
+
+#footer{
+	background: url('../images/footer-bg.png') repeat-x;
+	height: 92px;
+	width: 100%;
+}
+
+#footer .content{
+	margin: 0 auto;
+	padding-top: 20px;
+	width: 890px;
+}
+
+#footer .content .copy{
+	text-align: center;
+	width: 100%;
 }

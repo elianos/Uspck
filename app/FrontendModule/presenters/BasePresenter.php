@@ -31,4 +31,19 @@ abstract class BasePresenter extends \FrontendModule\Presenter
       	$this->template->param = $this->getParam();
       	$this->template->navigation_list = $db->query('SELECT core_pages.*, core_modules.presenter, core_modules.action FROM core_pages LEFT JOIN core_modules ON core_pages.core_modules_id = core_modules.id WHERE active = ? AND core_pages.core_webs_id = ? ORDER BY core_pages.order',1, $this->getParam('web'));
 	}
+	
+	protected function createTemplate($class = NULL)
+	{
+	    $template = parent::createTemplate($class);
+	    $template->registerHelper('size', function ($s) {
+	        if($s < 100000){
+	        	$result = round($s / 1000, 2);
+	        	return "{$result}kB";
+	        }else{
+	        	$result = round($s / 1000000, 2);
+	        	return "{$result}MB";
+	        }
+	    });
+	    return $template;
+	}
 }

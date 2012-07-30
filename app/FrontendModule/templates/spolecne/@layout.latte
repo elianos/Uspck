@@ -21,18 +21,28 @@
 <body>
 	<div id="header">
 		<div class="content">
-			<a id="logo" href="{$basePath}"><img src="{$basePath}/spolecne/images/logo.png" alt="Domov pro osoby se zdravotním postižením Oleška - Kamenice" /></a>
+			<a id="logo" href="./"><img src="{$basePath}/spolecne/images/logo.png" alt="Domov pro osoby se zdravotním postižením Oleška - Kamenice" /></a>
 			<img id="slogan" src="{$basePath}/spolecne/images/slogan.png" alt="'Každý den je nový začátek' Seneca" />
 			<ul id="navigation">
+				{var $navigations = $navigation_list}
 				{foreach $navigation_list as $part}
 					<li><a n:href="$part->presenter.':'.$part->action, 'id' => $part->id">{$part->name}</a></li>
 				{/foreach}
 			</ul>
 		</div>
 	</div>
-	<div id="main">
-		<div n:foreach="$flashes as $flash" class="flash {$flash->type}">{$flash->message}</div>
-		{include #content}
+	<div id="wraper">
+		<div id="main">
+			<div n:foreach="$flashes as $flash" class="flash {$flash->type}">{$flash->message}</div>
+			{include #content}
+		</div>
+	</div>
+	<div id="footer">
+		<div class="content">
+			<div class="copy">
+				(c) DOZP Oleška - Kamenice, Zřizovatel - Ústecký kraj, Created by Vlastimil Jinoch
+			</div>
+		</div>
 	</div>
 
 </body>

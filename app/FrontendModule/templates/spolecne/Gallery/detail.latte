@@ -1,0 +1,19 @@
+{block content}
+<div id="gallery">
+	<h1>{$title}</h1>
+	<ul class="photos">
+	{foreach $images as $image}
+		<li>
+			<a href="{$baseUrl}/../media/gallery/full/{$image->id}.jpg" title="Image">
+				<img src="{$baseUrl}/../media/gallery/min/{$image->id}.jpg" alt="{$image->id}" />
+			</a>
+		</li>
+	{/foreach}
+	</ul>
+	<script>
+		$(function() {
+			$('#gallery a').lightBox();
+		});
+	</script>
+</div>
+{/block}

@@ -1,0 +1,11 @@
+{block content}
+<div id="downloads" class="default">
+	<h1>{$title}</h1>
+	<ul class="filter">
+	{foreach $downloads as $download}
+		<li>{$download->text} <a href="../../media/downloads/{$download->name}">{$download->name}</a> ({$download->size|size})</li>
+	{/foreach}
+	</ul>
+	
+</div>
+{/block}
